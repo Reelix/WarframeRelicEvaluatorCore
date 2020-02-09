@@ -1,22 +1,23 @@
-﻿namespace WarframeRelicEvaluatorCore
-{
+﻿// Warning: DO NOT fix the case of the variables in this file else the JsonParser breaks
 
+namespace WarframeRelicEvaluatorCore
+{
     public class ItemDataRoot
     {
-        public ItemPayload payload { get; set; }
+        public ItemDataPayload payload { get; set; }
     }
 
-    public class ItemPayload
+    public class ItemDataPayload
     {
-        public ItemData[] items { get; set; }
+        public Item[] items { get; set; }
     }
 
-    public class ItemData
+    public class Item
     {
-        public string thumb { get; set; }
-        public string url_name { get; set; }
         public string item_name { get; set; }
+        public string thumb { get; set; }
         public string id { get; set; }
+        public string url_name { get; set; }
     }
 
 }
