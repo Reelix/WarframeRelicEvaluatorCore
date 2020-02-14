@@ -29,8 +29,8 @@ public class User
 {
     public string ingame_name { get; set; }
     public DateTime? last_seen { get; set; }
-    public int reputation_bonus { get; set; }
-    public int reputation { get; set; }
+    public float reputation_bonus { get; set; } // Float when it goes into negatives for some reason
+    public float reputation { get; set; } // Float when it goes into negatives for some reason
     public string region { get; set; }
     public string avatar { get; set; }
     public string status { get; set; }
