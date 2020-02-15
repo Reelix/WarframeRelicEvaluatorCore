@@ -1,6 +1,10 @@
 # WarframeRelicEvaluatorCore
 A program to determine platinum values of relic rewards in Warframe  
 
+The following screenshot shows an example of people who would've benefitted from the app :)
+
+![Example of people who need the app](https://i.imgur.com/GVGJY1m.png)
+
 ## Usage
 - Make sure Warframe is running in Borderless Fullscreen Mode
 - Make sure your Desktop resolution is set to 1920x1080
