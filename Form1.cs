@@ -362,6 +362,11 @@ namespace WarframeRelicEvaluatorCore
             // The less garbled it is the higher the chance it will find something, so lets de-garble some common things
             text = text.Replace("Prine", "Prime");
             text = text.Replace("PHme", "Prime");
+            text = text.Replace("Piime", "Prime");
+            text = text.Replace("Prihe", "Prime");
+            text = text.Replace("PriFie", "Prime");
+            text = text.Replace("Neuroplics", "Neuroptics");
+            text = text.Replace("Neuruptics", "Neuroptics");
             text = text.Replace("Primestock", "Prime Stock");
             text = text.Replace("Blueprim", "Blueprint");
             text = text.Replace("\n", " "); // Make sure everything is on one line for the lookup
