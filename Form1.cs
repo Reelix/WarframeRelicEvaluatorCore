@@ -19,7 +19,6 @@ namespace WarframeRelicEvaluatorCore
 {
     public partial class Form1 : Form
     {
-        // https://docs.google.com/spreadsheets/d/1AaTziJzt35bifF5kwrap003cuPqFwy0FnV6i2sBW7ho/edit
         static string warframeItems = "";
         static string username = Environment.UserName;
         const int textTop = 415;
@@ -83,6 +82,8 @@ namespace WarframeRelicEvaluatorCore
         private void Form1_Load(object sender, EventArgs e)
         {
             // If this line throws an error, you're missing the tessdata folder in your debug / release folder
+            // Copy the folder: WarframeRelicEvaluatorCore\tessdata 
+            // To: bin\Debug\netcoreapp3.1\tessdata
             tessEngine = new TesseractEngine(Application.StartupPath + @"\tessdata", "eng");
 
             // Load the items
@@ -93,6 +94,17 @@ namespace WarframeRelicEvaluatorCore
 
             // Go to minimized mode - Optional
             // Shrink();
+
+            // Prevent annoying max-length beeping
+            txtCurrentRelic.KeyDown += (sender, e) => {
+                TextBox textBox = sender as TextBox;
+                if ((textBox.Text.Length == textBox.MaxLength) && (e.KeyCode != Keys.Delete && e.KeyCode != Keys.Back))
+                {
+                    e.SuppressKeyPress = true;
+                }
+            };
+
+            cbRelicType.SelectedIndex = 0;
         }
 
 
@@ -107,7 +119,7 @@ namespace WarframeRelicEvaluatorCore
             Bitmap lastBitmap = new Bitmap(Image.FromFile($@"C:\Users\{username}\Pictures\Warframe\ReeAppLatest.bmp"));
             Process4Players(lastBitmap);
 
-            // RunTests();
+            RunTests();
         }
 
         #region Reelix's Tests - You can ignore this
@@ -315,6 +327,10 @@ namespace WarframeRelicEvaluatorCore
                 Bitmap cropped = (Bitmap)theBitmap.Clone(srcRect, theBitmap.PixelFormat);
 
                 // If Folder doesn't exist?
+                if (!Directory.Exists($@"C:\Users\{username}\Pictures\Warframe\Woof"))
+                {
+                    Directory.CreateDirectory($@"C: \Users\{ username}\Pictures\Warframe\Woof");
+                }
                 cropped.Save($@"C:\Users\{username}\Pictures\Warframe\Woof\{item}.bmp");
                 string ocrResult = DoOCR($@"C:\Users\{username}\Pictures\Warframe\Woof\{item}.bmp");
                 ocrResult = FixCommonOCRErrors(ocrResult);
@@ -367,8 +383,11 @@ namespace WarframeRelicEvaluatorCore
             text = text.Replace("PriFie", "Prime");
             text = text.Replace("Neuroplics", "Neuroptics");
             text = text.Replace("Neuruptics", "Neuroptics");
+            text = text.Replace("Nburoplics", "Neuroptics");
             text = text.Replace("Primestock", "Prime Stock");
             text = text.Replace("Blueprim", "Blueprint");
+            text = text.Replace("Bmeprint", "Blueprint"); // o_O
+            text = text.Replace("HandIe", "Handle");
             text = text.Replace("\n", " "); // Make sure everything is on one line for the lookup
             text = text.Trim();
             return text;
@@ -644,6 +663,11 @@ namespace WarframeRelicEvaluatorCore
                 int itemCount = warframeItems.Split(',').Length;
                 lblDatabase.Text = "Database: " + itemCount;
             }
+        }
+
+        private void cbRelicType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtCurrentRelic.Select();
         }
     }
 }
