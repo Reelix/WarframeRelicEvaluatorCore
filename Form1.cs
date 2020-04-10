@@ -23,6 +23,7 @@ namespace WarframeRelicEvaluatorCore
         static string username = Environment.UserName;
         const int textTop = 415;
         const int textHeight = 45;
+        const int textWidth = 240;
         WebClient wc = new WebClient();
         TesseractEngine tessEngine;
 
@@ -35,7 +36,6 @@ namespace WarframeRelicEvaluatorCore
 
         public void Subscribe()
         {
-            // Note: for the application hook, use the Hook.AppEvents() instead
             m_GlobalHook = Hook.GlobalEvents();
 
             m_GlobalHook.KeyDown += GlobalHookKey_Down;
@@ -65,7 +65,6 @@ namespace WarframeRelicEvaluatorCore
 
         public void Unsubscribe()
         {
-            // m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
             m_GlobalHook.KeyDown -= GlobalHookKey_Down;
             m_GlobalHook.KeyUp -= GlobalHookKey_Up;
 
@@ -261,7 +260,7 @@ namespace WarframeRelicEvaluatorCore
 
         private void btn4Players_Click(object sender, EventArgs e)
         {
-            // 3 Players
+            // 4 Players
             Bitmap warframeScreenshot = DoSetup();
             if (warframeScreenshot != null)
             {
@@ -278,8 +277,6 @@ namespace WarframeRelicEvaluatorCore
                 textBox1.Text = "";
             }
             // Split into the 3 items - Assuming 3 players
-
-            // Item 1
 
             int item = 1;
             foreach (int xPos in new int[] { 595, 840, 1080 }) // 1920x1080
@@ -323,13 +320,12 @@ namespace WarframeRelicEvaluatorCore
             int item = 1;
             foreach (int xPos in new int[] { 475, 725, 960, 1205 }) // 1920x1080
             {
-                Rectangle srcRect = new Rectangle(xPos, textTop, 240, textHeight);
-                Bitmap cropped = (Bitmap)theBitmap.Clone(srcRect, theBitmap.PixelFormat);
+                Rectangle srcRect = new Rectangle(xPos, textTop, textWidth, textHeight);
+                Bitmap cropped = theBitmap.Clone(srcRect, theBitmap.PixelFormat);
 
-                // If Folder doesn't exist?
                 if (!Directory.Exists($@"C:\Users\{username}\Pictures\Warframe\Woof"))
                 {
-                    Directory.CreateDirectory($@"C: \Users\{ username}\Pictures\Warframe\Woof");
+                    Directory.CreateDirectory($@"C:\Users\{username}\Pictures\Warframe\Woof");
                 }
                 cropped.Save($@"C:\Users\{username}\Pictures\Warframe\Woof\{item}.bmp");
                 string ocrResult = DoOCR($@"C:\Users\{username}\Pictures\Warframe\Woof\{item}.bmp");
