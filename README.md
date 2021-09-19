@@ -1,4 +1,9 @@
 # WarframeRelicEvaluatorCore
+
+### NOTICE: As [WFInfo](https://wfinfo.warframestat.us/) has since been updated, this project will no longer be developed
+
+- - -
+
 A program to determine platinum values of relic rewards in Warframe  
 
 The following screenshot shows an example of people who would've benefitted from the app :)
